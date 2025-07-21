@@ -1,31 +1,71 @@
 <nav class="navbar navbar-expand-lg border-bottom bg-body-light sticky-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/"><i class="fa-brands fa-airbnb"></i></a>
+      <a class="navbar-brand" href="/listings"><i class="fa-brands fa-airbnb"></i></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
+           
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/listings">all listings</a>
+            <a class="nav-link" href="/listings">Explore</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/listings/new">New listings</a>
+           
           </li>
           <li class="nav-item">
            
           </li>
         </ul>
+        <!-- Airbnb-style Search Bar -->
+<form action="/search" method="GET" class="d-flex align-items-center mx-auto rounded-pill shadow px-3 py-2 bg-white ms-5" style="max-width: 800px; min-width: 400px; gap: 1rem;">
+  <!-- Where -->
+  <div class="d-flex flex-column">
+    <small class="fw-bold">Where</small>
+    <input type="text" name="location" class="form-control border-0 p-0" placeholder="Search destinations" required>
+  </div>
+
+  <!-- Divider -->
+  <div class="vr"></div>
+
+  <!-- Check In -->
+  <div class="d-flex flex-column">
+    <small class="fw-bold">Check in</small>
+    <input type="date" name="checkin" class="form-control border-0 p-0" placeholder="Add dates">
+  </div>
+
+  <div class="vr"></div>
+
+  <!-- Check Out -->
+  <div class="d-flex flex-column">
+    <small class="fw-bold">Check out</small>
+    <input type="date" name="checkout" class="form-control border-0 p-0" placeholder="Add dates">
+  </div>
+
+  <div class="vr"></div>
+
+  <!-- Guests -->
+  <div class="d-flex flex-column">
+    <small class="fw-bold">Who</small>
+    <input type="number" name="guests" class="form-control border-0 p-0" placeholder="Add guests" min="1">
+  </div>
+
+  <!-- Search Button -->
+  <button class="btn btn-danger rounded-circle d-flex align-items-center justify-content-center" type="submit" style="width: 40px; height: 40px;">
+    <i class="bi bi-search text-white"></i>
+  </button>
+</form>
+
         <ul class="navbar-nav ms-auto">
+           <a class="nav-link" href="/listings/new">New listings</a>
           <% if(!currUser){%>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/signup">Sign up </a>
+            <a class="nav-link active" aria-current="page" href="/signup"><b>Sign up</b> </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/login">Log in</a>
+            <a class="nav-link" href="/login"><b>Log in</b></a>
           </li>
         <%}%>
         <% if(currUser){%>

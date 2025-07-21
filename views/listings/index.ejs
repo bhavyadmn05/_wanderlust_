@@ -1,24 +1,80 @@
 <% layout("/layout/boilerplate") %> 
 <body>
-    <!-- <form method="get" action="/listings/new">
-        <button>Create new listings</button>
-    </form> -->
+
+    <!-- Category Navbar with Toggle (Single Line) -->
+<div class="container-fluid my-4">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-4 px-3 py-2 border-bottom">
+        
+        <!-- Category Icons -->
+        <div class="d-flex align-items-center gap-4 flex-wrap">
+            <div class="text-center">
+                <i class="bi bi-house-door fs-5"></i><br><small>Farms</small>
+            </div>
+            <div class="text-center">
+                <i class="bi bi-person fs-5"></i><br><small>Rooms</small>
+            </div>
+            <div class="text-center">
+                <i class="bi bi-image fs-5"></i><br><small>Amazing views</small>
+            </div>
+            <div class="text-center">
+                <i class="bi bi-building fs-5"></i><br><small>Iconic cities</small>
+            </div>
+            <div class="text-center">
+                <i class="bi bi-sunset fs-5"></i><br><small>Surfing</small>
+            </div>
+            <div class="text-center">
+                <i class="bi bi-droplet-half fs-5"></i><br><small>Amazing pools</small>
+            </div>
+            <div class="text-center">
+                <i class="bi bi-umbrella fs-5"></i><br><small>Beach</small>
+            </div>
+            <div class="text-center">
+                <i class="bi bi-tree fs-5"></i><br><small>Camping</small>
+            </div>
+            <div class="text-center">
+                <i class="bi bi-globe fs-5"></i><br><small>National Parks</small>
+            </div>
+        </div>
+
+        <!-- Toggle Switch -->
+        <div class="form-check form-switch ms-auto">
+            <input class="form-check-input" type="checkbox" id="taxToggle">
+            <label class="form-check-label" for="taxToggle">Display total before taxes</label>
+        </div>
+    </div>
+</div>
+
+    <!-- Listings -->
     <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
         <% for(let listing of allListings){ %>
-            <a href="/listings/<%=listing._id%>" class = "listing-link">
-            <div class="card col listing-card">
-                <img src="<%= listing.image.url %>" class="card-img-top" alt="..."  style="height: 20rem">
-                <div class="card-img-overlay"></div>
-                <div class="card-body">
-                  <p class="card-text">
-                    <b><%= listing.title %> </b> <br>
-                     &#8377; <%= listing.price.toLocaleString("en-IN") %> /night
-                  </p>
+            <a href="/listings/<%= listing._id %>" class="listing-link">
+                <div class="card col listing-card">
+                    <img src="<%= listing.image.url %>" class="card-img-top" alt="..." style="height: 20rem">
+                    <div class="card-img-overlay"></div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <b><%= listing.title %></b> <br>
+                            &#8377; <%= listing.price.toLocaleString("en-IN") %> /night
+                            <i class="gst-note d-none"> +18% gst</i>
+                        </p>
+                    </div>
                 </div>
-              </div>
-              </a>
-              <%}%>
+            </a>
+        <% } %>
     </div>
-    
-    
+
+    <!-- GST Toggle Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const taxToggle = document.getElementById("taxToggle");
+            const gstNotes = document.querySelectorAll(".gst-note");
+
+            taxToggle.addEventListener("change", function () {
+                gstNotes.forEach(note => {
+                    note.classList.toggle("d-none", !this.checked);
+                });
+            });
+        });
+    </script>
+
 </body>
