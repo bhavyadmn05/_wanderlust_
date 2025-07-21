@@ -1,5 +1,9 @@
 const Listing = require("../models/listing.js");
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0dea231a03a2a5ab5d4d89382dc9261f4c9a6aa9
 module.exports.index = async (req,res)=>{
     const allListings = await Listing.find();
     res.render("./listings/index.ejs",{allListings});
@@ -21,12 +25,17 @@ module.exports.showListing = async (req,res)=>{
 };
 
 module.exports.createListing = async(req,res,next)=>{
+<<<<<<< HEAD
         let url = req.file.path;
         let filename = req.file.filename;
 
         const newListing = new Listing(req.body.listing);
         newListing.owner = req.user._id;
         newListing.image = {url,filename};
+=======
+        const newListing = new Listing(req.body.listing);
+        newListing.owner = req.user._id;
+>>>>>>> 0dea231a03a2a5ab5d4d89382dc9261f4c9a6aa9
         await newListing.save();
         req.flash("success" , "new listing");
         res.redirect("/listings");
