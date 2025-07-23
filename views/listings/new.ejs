@@ -1,47 +1,63 @@
 <% layout("/layout/boilerplate") %>
-<body>
-    <div class="row">
-        <div class="cols-8 offset-2">
-    <h1> create new listings</h1>
-    <form method="post" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
-        <div>
-            <label for="title" class="form-label">title</label>
-            <input name="listing[title]" placeholder = "enter title" type="text" class="form-control" required>
-            <div class="valid-feedback">title looks good</div>
-        <br><br>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card listing-card fade-in">
+                <div class="card-body p-5">
+                    <h2 class="card-title text-center mb-4">List Your Property</h2>
+                    <p class="text-muted text-center mb-4">Share your space with travelers from around the world</p>
+                    
+                    <form method="post" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label for="title" class="form-label">Property Title</label>
+                                <input name="listing[title]" placeholder="Enter a catchy title" type="text" class="form-control" required>
+                                <div class="valid-feedback">Title looks good!</div>
+                                <div class="invalid-feedback">Please provide a title</div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-4">
+                                <label for="price" class="form-label">Price per Night (₹)</label>
+                                <input name="listing[price]" placeholder="Enter price" type="number" class="form-control" required>
+                                <div class="invalid-feedback">Price should be valid</div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea name="listing[description]" placeholder="Describe your property..." class="form-control" rows="4" required></textarea>
+                            <div class="invalid-feedback">Please write a description</div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="image" class="form-label">Upload Images</label>
+                            <input name="image" type="file" class="form-control" accept="image/*">
+                            <small class="form-text text-muted">Upload high-quality images to attract more guests</small>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label for="country" class="form-label">Country</label>
+                                <input name="listing[country]" placeholder="Enter country" type="text" class="form-control" required>
+                                <div class="invalid-feedback">Country name should be valid</div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-4">
+                                <label for="location" class="form-label">Location</label>
+                                <input name="listing[location]" placeholder="Enter city/location" type="text" class="form-control" required>
+                                <div class="invalid-feedback">Location should be valid</div>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button class="btn btn-primary-custom btn-lg px-5">
+                                <i class="fas fa-plus me-2"></i>Create Listing
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div>
-            <label for="description" class="form-label">description</label>
-            <textarea name="listing[description]" placeholder="enter description" class="form-control" required></textarea>
-            <div class="invalid-feedback">write a short discription</div>
-         <br><br>
-        </div>
-        <div>
-            <label for="image" class="form-label">Upload image</label>
-            <input name="image" placeholder = "enter image URL" type="file" class="form-control">
-            
-        <br><br>
-        </div>
-        <div>
-            <label for="price" class="form-label">price</label>
-            <input name="listing[price]" placeholder = "enter price" class="form-control" required>
-            <div class="invalid-feedback">price should be valid</div>
-        <br><br>
-        </div>
-        <div>
-            <label for="country" class="form-label">country</label>
-            <input name="listing[country]" placeholder = "enter country" type="text" class="form-control" required>
-            <div class="invalid-feedback">country name should be valid</div>
-        <br><br>
-        </div>
-        <div>
-            <label for="location" class="loacation">location</label>
-            <input name="listing[location]" placeholder = "enter location" type="text" class="form-control" required>
-            <div class="invalid-feedback">location should be valid</div>
-            <br><br>
-        </div>
-        <button class="btn btn-dark">submit</button>
     </div>
 </div>
-</form>
-</body>

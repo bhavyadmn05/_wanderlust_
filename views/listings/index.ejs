@@ -1,80 +1,132 @@
 <% layout("/layout/boilerplate") %> 
-<body>
 
-    <!-- Category Navbar with Toggle (Single Line) -->
-<div class="container-fluid my-4">
-    <div class="d-flex align-items-center justify-content-between flex-wrap gap-4 px-3 py-2 border-bottom">
-        
-        <!-- Category Icons -->
-        <div class="d-flex align-items-center gap-4 flex-wrap">
-            <div class="text-center">
-                <i class="bi bi-house-door fs-5"></i><br><small>Farms</small>
-            </div>
-            <div class="text-center">
-                <i class="bi bi-person fs-5"></i><br><small>Rooms</small>
-            </div>
-            <div class="text-center">
-                <i class="bi bi-image fs-5"></i><br><small>Amazing views</small>
-            </div>
-            <div class="text-center">
-                <i class="bi bi-building fs-5"></i><br><small>Iconic cities</small>
-            </div>
-            <div class="text-center">
-                <i class="bi bi-sunset fs-5"></i><br><small>Surfing</small>
-            </div>
-            <div class="text-center">
-                <i class="bi bi-droplet-half fs-5"></i><br><small>Amazing pools</small>
-            </div>
-            <div class="text-center">
-                <i class="bi bi-umbrella fs-5"></i><br><small>Beach</small>
-            </div>
-            <div class="text-center">
-                <i class="bi bi-tree fs-5"></i><br><small>Camping</small>
-            </div>
-            <div class="text-center">
-                <i class="bi bi-globe fs-5"></i><br><small>National Parks</small>
-            </div>
-        </div>
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="container hero-content">
+        <div class="row">
+            <div class="col-lg-8">
+                <h1 class="hero-title fade-in">Find Your Perfect Stay</h1>
+                <p class="hero-subtitle fade-in">Discover amazing places to stay around the world</p>
+                
+                <!-- Search Tabs -->
+                <div class="search-tabs fade-in">
+                    <button class="search-tab active">
+                        <i class="fas fa-bed me-2"></i>Stays
+                    </button>
+                    <button class="search-tab">
+                        <i class="fas fa-plane me-2"></i>Flights
+                    </button>
+                    <button class="search-tab">
+                        <i class="fas fa-car me-2"></i>Cars
+                    </button>
+                </div>
 
-        <!-- Toggle Switch -->
-        <div class="form-check form-switch ms-auto">
-            <input class="form-check-input" type="checkbox" id="taxToggle">
-            <label class="form-check-label" for="taxToggle">Display total before taxes</label>
+                <!-- Modern Search Form -->
+                <form action="/search" method="GET" class="modern-search-form slide-up">
+                    <input type="text" name="location" class="search-field" placeholder="Where are you going?" required>
+                    <div class="search-divider"></div>
+                    <input type="date" name="checkin" class="search-field" placeholder="mm/dd/yyyy">
+                    <div class="search-divider"></div>
+                    <input type="date" name="checkout" class="search-field" placeholder="mm/dd/yyyy">
+                    <div class="search-divider"></div>
+                    <input type="number" name="guests" class="search-field" placeholder="Guests" min="1">
+                    <button class="search-btn" type="submit">
+                        <i class="bi bi-search"></i>Search
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 
-    <!-- Listings -->
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-        <% for(let listing of allListings){ %>
-            <a href="/listings/<%= listing._id %>" class="listing-link">
-                <div class="card col listing-card">
-                    <img src="<%= listing.image.url %>" class="card-img-top" alt="..." style="height: 20rem">
-                    <div class="card-img-overlay"></div>
-                    <div class="card-body">
-                        <p class="card-text">
-                            <b><%= listing.title %></b> <br>
-                            &#8377; <%= listing.price.toLocaleString("en-IN") %> /night
-                            <i class="gst-note d-none"> +18% gst</i>
-                        </p>
-                    </div>
-                </div>
+<!-- Category Navigation -->
+<div class="category-nav">
+    <div class="category-container">
+        <div class="category-items">
+            <a href="#" class="category-item">
+                <i class="bi bi-house-door"></i>
+                <small>Farms</small>
             </a>
+            <a href="#" class="category-item">
+                <i class="bi bi-person"></i>
+                <small>Rooms</small>
+            </a>
+            <a href="#" class="category-item">
+                <i class="bi bi-image"></i>
+                <small>Amazing views</small>
+            </a>
+            <a href="#" class="category-item">
+                <i class="bi bi-building"></i>
+                <small>Iconic cities</small>
+            </a>
+            <a href="#" class="category-item">
+                <i class="bi bi-sunset"></i>
+                <small>Surfing</small>
+            </a>
+            <a href="#" class="category-item">
+                <i class="bi bi-droplet-half"></i>
+                <small>Amazing pools</small>
+            </a>
+            <a href="#" class="category-item">
+                <i class="bi bi-umbrella"></i>
+                <small>Beach</small>
+            </a>
+            <a href="#" class="category-item">
+                <i class="bi bi-tree"></i>
+                <small>Camping</small>
+            </a>
+        </div>
+        
+        <div class="tax-toggle-container">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="taxToggle">
+                <label class="form-check-label" for="taxToggle">
+                    Display total before taxes
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-4">
+    <!-- Listings Grid -->
+    <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1 g-4">
+        <% for(let listing of allListings){ %>
+            <div class="col">
+                <a href="/listings/<%= listing._id %>" class="listing-link">
+                    <div class="listing-card fade-in">
+                        <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>">
+                        <div class="card-body">
+                            <p class="card-text">
+                                <b><%= listing.title %></b><br>
+                                <small class="text-muted"><%= listing.location %>, <%= listing.country %></small><br>
+                                <span class="fw-bold">₹<%= listing.price.toLocaleString("en-IN") %></span> /night
+                                <small class="gst-note d-none text-muted"> +18% GST</small>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
         <% } %>
     </div>
+</div>
 
-    <!-- GST Toggle Script -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const taxToggle = document.getElementById("taxToggle");
-            const gstNotes = document.querySelectorAll(".gst-note");
+<!-- GST Toggle Script -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const taxToggle = document.getElementById("taxToggle");
+        const gstNotes = document.querySelectorAll(".gst-note");
 
-            taxToggle.addEventListener("change", function () {
-                gstNotes.forEach(note => {
-                    note.classList.toggle("d-none", !this.checked);
-                });
+        taxToggle.addEventListener("change", function () {
+            gstNotes.forEach(note => {
+                note.classList.toggle("d-none", !this.checked);
             });
         });
-    </script>
 
-</body>
+        // Add animation delays
+        const cards = document.querySelectorAll('.fade-in');
+        cards.forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+    });
+</script>
