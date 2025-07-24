@@ -1,0 +1,320 @@
+<% layout("/layout/boilerplate") %>
+
+<div class="container my-4">
+    <!-- Search Header -->
+    <div class="search-header mb-4">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h2 class="search-title">
+                    <% if (searchResults.length > 0) { %>
+                        <%= totalResults %> result<%= totalResults === 1 ? '' : 's' %> found for "<%= searchQuery %>"
+                    <% } else { %>
+                        No results found for "<%= searchQuery %>"
+                    <% } %>
+                </h2>
+                <p class="search-subtitle">
+                    <% if (searchResults.length > 0) { %>
+                        Showing the best matches for your search
+                    <% } else { %>
+                        Try searching with different keywords
+                    <% } %>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <!-- New Search Form -->
+                <form action="/search" method="GET" class="search-again-form">
+                    <div class="input-group">
+                        <input type="text" name="query" class="form-control" placeholder="Search again..." value="<%= searchQuery %>">
+                        <button class="btn btn-primary-custom" type="submit">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <% if (searchResults.length > 0) { %>
+        <!-- Search Results Grid -->
+        <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1 g-4">
+            <% for(let listing of searchResults){ %>
+                <div class="col">
+                    <a href="/listings/<%= listing._id %>" class="listing-link">
+                        <div class="listing-card fade-in">
+                            <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>">
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <b><%= listing.title %></b><br>
+                                    <small class="text-muted">
+                                        <i class="fas fa-map-marker-alt me-1"></i>
+                                        <%= listing.location %>, <%= listing.country %>
+                                    </small><br>
+                                    <span class="fw-bold text-primary">₹<%= listing.price.toLocaleString("en-IN") %></span> 
+                                    <small class="text-muted">/night</small>
+                                </p>
+                                <!-- Match indicator -->
+                                <% if (listing.matchScore && listing.matchScore > 0) { %>
+                                <div class="match-indicator">
+                                    <small class="badge bg-success">
+                                        <i class="fas fa-star me-1"></i>
+                                        <%= listing.matchScore %>% match
+                                    </small>
+                                </div>
+                                <% } %>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            <% } %>
+        </div>
+
+        <!-- Pagination -->
+        <% if (totalPages && totalPages > 1) { %>
+        <nav aria-label="Search results pagination" class="mt-5">
+            <ul class="pagination justify-content-center">
+                <% if (currentPage > 1) { %>
+                <li class="page-item">
+                    <a class="page-link" href="/search?query=<%= encodeURIComponent(searchQuery) %>&page=<%= currentPage - 1 %>">Previous</a>
+                </li>
+                <% } %>
+                
+                <% for (let i = 1; i <= totalPages; i++) { %>
+                <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                    <a class="page-link" href="/search?query=<%= encodeURIComponent(searchQuery) %>&page=<%= i %>"><%= i %></a>
+                </li>
+                <% } %>
+                
+                <% if (currentPage < totalPages) { %>
+                <li class="page-item">
+                    <a class="page-link" href="/search?query=<%= encodeURIComponent(searchQuery) %>&page=<%= currentPage + 1 %>">Next</a>
+                </li>
+                <% } %>
+            </ul>
+        </nav>
+        <% } %>
+
+    <% } else { %>
+        <!-- No Results Found -->
+        <div class="no-results-container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center">
+                    <div class="no-results-content">
+                        <i class="fas fa-search no-results-icon"></i>
+                        <h3 class="no-results-title">No rooms found</h3>
+                        <p class="no-results-text">
+                            We couldn't find any rooms matching "<strong><%= searchQuery %></strong>". 
+                            Try adjusting your search or browse our popular destinations below.
+                        </p>
+                        
+                        <!-- Search Suggestions -->
+                        <div class="search-suggestions">
+                            <h5>Try searching for:</h5>
+                            <div class="suggestion-tags">
+                                <a href="/search?query=beach" class="suggestion-tag">Beach Villa</a>
+                                <a href="/search?query=mountain" class="suggestion-tag">Mountain View</a>
+                                <a href="/search?query=city" class="suggestion-tag">City Apartment</a>
+                                <a href="/search?query=luxury" class="suggestion-tag">Luxury Suite</a>
+                                <a href="/search?query=cozy" class="suggestion-tag">Cozy Cabin</a>
+                            </div>
+                        </div>
+
+                        <!-- Back to Browse -->
+                        <div class="back-to-browse mt-4">
+                            <a href="/listings" class="btn btn-primary-custom btn-lg">
+                                <i class="fas fa-home me-2"></i>
+                                Browse All Rooms
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Popular Listings -->
+        <% if (popularListings && popularListings.length > 0) { %>
+        <div class="popular-listings mt-5">
+            <h4 class="mb-4">Popular Destinations</h4>
+            <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1 g-4">
+                <% for(let listing of popularListings){ %>
+                    <div class="col">
+                        <a href="/listings/<%= listing._id %>" class="listing-link">
+                            <div class="listing-card fade-in">
+                                <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>">
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        <b><%= listing.title %></b><br>
+                                        <small class="text-muted">
+                                            <i class="fas fa-map-marker-alt me-1"></i>
+                                            <%= listing.location %>, <%= listing.country %>
+                                        </small><br>
+                                        <span class="fw-bold text-primary">₹<%= listing.price.toLocaleString("en-IN") %></span> 
+                                        <small class="text-muted">/night</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+        <% } %>
+    <% } %>
+</div>
+
+<!-- Additional CSS for Search Page -->
+<style>
+.search-header {
+    background: linear-gradient(135deg, var(--primary-teal) 0%, var(--primary-teal-dark) 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+}
+
+.search-title {
+    color: white;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.search-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0;
+}
+
+.search-again-form .form-control {
+    border-radius: 25px 0 0 25px;
+    border: none;
+    padding: 0.75rem 1rem;
+}
+
+.search-again-form .btn {
+    border-radius: 0 25px 25px 0;
+    border: none;
+    padding: 0.75rem 1rem;
+}
+
+.match-indicator {
+    margin-top: 0.5rem;
+}
+
+.match-indicator .badge {
+    font-size: 0.7rem;
+}
+
+.no-results-container {
+    padding: 4rem 0;
+}
+
+.no-results-icon {
+    font-size: 4rem;
+    color: var(--primary-teal);
+    margin-bottom: 1.5rem;
+}
+
+.no-results-title {
+    color: var(--dark-gray);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.no-results-text {
+    color: #666;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.search-suggestions {
+    margin: 2rem 0;
+}
+
+.search-suggestions h5 {
+    color: var(--dark-gray);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.suggestion-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.suggestion-tag {
+    background-color: var(--light-gray);
+    color: var(--dark-gray);
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.suggestion-tag:hover {
+    background-color: var(--primary-teal);
+    color: white;
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+
+.popular-listings {
+    border-top: 1px solid #eee;
+    padding-top: 2rem;
+}
+
+.popular-listings h4 {
+    color: var(--dark-gray);
+    font-weight: 600;
+}
+
+.pagination .page-link {
+    color: var(--primary-teal);
+    border-color: var(--primary-teal);
+    border-radius: 25px;
+    margin: 0 0.2rem;
+    padding: 0.5rem 1rem;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-teal);
+    border-color: var(--primary-teal);
+}
+
+.pagination .page-link:hover {
+    background-color: var(--primary-teal-dark);
+    border-color: var(--primary-teal-dark);
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .search-header {
+        padding: 1.5rem;
+    }
+    
+    .search-title {
+        font-size: 1.5rem;
+    }
+    
+    .suggestion-tags {
+        justify-content: center;
+    }
+    
+    .no-results-icon {
+        font-size: 3rem;
+    }
+}
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Add animation delays
+        const cards = document.querySelectorAll('.fade-in');
+        cards.forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+    });
+</script>

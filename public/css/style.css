@@ -1,4 +1,4 @@
-/* Modern Expedia-style Theme */
+/* Modern Expedia-style Theme - Light Mode Only */
 :root {
   --primary-teal: #4ecdc4;
   --primary-teal-dark: #45b7b8;
@@ -125,7 +125,7 @@ body {
   background-color: var(--white);
 }
 
-/* Modern Search Form */
+/* Modern Search Form - Simplified */
 .modern-search-form {
   background-color: var(--white);
   border-radius: 50px;
@@ -133,7 +133,7 @@ body {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
   display: flex;
   align-items: center;
-  max-width: 900px;
+  max-width: 600px;
   margin: 2rem auto 0;
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -145,6 +145,7 @@ body {
   background: transparent;
   font-size: 0.95rem;
   color: var(--dark-gray);
+  width: 100%;
 }
 
 .search-field:focus {
@@ -155,13 +156,6 @@ body {
 .search-field::placeholder {
   color: #999;
   font-weight: 400;
-}
-
-.search-divider {
-  width: 1px;
-  height: 30px;
-  background-color: #e0e0e0;
-  margin: 0 0.5rem;
 }
 
 .search-btn {
@@ -177,12 +171,36 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  white-space: nowrap;
 }
 
 .search-btn:hover {
   background-color: var(--primary-teal-dark);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(78, 205, 196, 0.3);
+}
+
+/* Search Results */
+.search-results {
+  margin: 2rem 0;
+}
+
+.search-results h3 {
+  color: var(--dark-gray);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.no-results {
+  text-align: center;
+  padding: 3rem 0;
+  color: #666;
+}
+
+.no-results i {
+  font-size: 3rem;
+  color: var(--primary-teal);
+  margin-bottom: 1rem;
 }
 
 /* Category Navigation */
@@ -590,7 +608,7 @@ footer {
 }
 
 /* ========================================
-   COMPREHENSIVE MEDIA QUERIES
+   RESPONSIVE MEDIA QUERIES - LIGHT MODE ONLY
    ======================================== */
 
 /* Large Desktops (1400px and up) */
@@ -657,7 +675,7 @@ footer {
   }
 
   .modern-search-form {
-    max-width: 800px;
+    max-width: 500px;
   }
 
   .search-field {
@@ -695,7 +713,7 @@ footer {
   }
 
   .modern-search-form {
-    max-width: 700px;
+    max-width: 450px;
     padding: 0.4rem;
   }
 
@@ -791,30 +809,21 @@ footer {
   }
 
   .modern-search-form {
-    flex-direction: column;
-    border-radius: 20px;
+    flex-direction: row;
+    border-radius: 25px;
     max-width: 100%;
     margin: 1.5rem auto 0;
-    padding: 1rem;
+    padding: 0.5rem;
   }
 
   .search-field {
-    width: 100%;
-    margin-bottom: 0.8rem;
-    padding: 1rem;
-    border-radius: 15px;
-    background-color: var(--light-gray);
-  }
-
-  .search-divider {
-    display: none;
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
   }
 
   .search-btn {
-    width: 100%;
-    justify-content: center;
-    padding: 1rem;
-    margin-top: 0.5rem;
+    padding: 0.8rem 1.2rem;
+    font-size: 0.85rem;
   }
 
   .search-tabs {
@@ -965,10 +974,6 @@ footer {
     border-radius: 12px;
     background-color: var(--light-gray);
     font-size: 0.9rem;
-  }
-
-  .search-divider {
-    display: none;
   }
 
   .search-btn {
@@ -1209,13 +1214,6 @@ footer {
   }
 }
 
-/* High DPI Displays */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .hero-section::before {
-    background-image: url("home@2x.png");
-  }
-}
-
 /* Print Styles */
 @media print {
   .navbar,
@@ -1276,32 +1274,5 @@ footer {
 
   * {
     transition: none !important;
-  }
-}
-
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --light-gray: #1a1a1a;
-    --white: #2d2d2d;
-    --dark-gray: #ffffff;
-  }
-
-  body {
-    background-color: var(--light-gray);
-    color: var(--dark-gray);
-  }
-
-  .navbar {
-    background-color: var(--white) !important;
-  }
-
-  .listing-card,
-  .category-nav {
-    background-color: var(--white);
-  }
-
-  .search-field {
-    color: var(--dark-gray);
   }
 }
