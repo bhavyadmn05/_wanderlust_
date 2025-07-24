@@ -8,7 +8,12 @@ Wanderlust is a full-stack web application designed for listing and exploring tr
 
 ## 📸 Screenshots
 
-Coming soon!
+<img width="938" height="398" alt="image" src="https://github.com/user-attachments/assets/68d9a472-9587-46f0-9d5c-1a909f23a26c" />
+<img width="945" height="431" alt="image" src="https://github.com/user-attachments/assets/ed9f569d-169f-46ae-8eb7-c5958f43116b" />
+<img width="935" height="432" alt="image" src="https://github.com/user-attachments/assets/2d370acf-a2ab-4bed-a865-812093ba6216" />
+
+
+
 
 ---
 
